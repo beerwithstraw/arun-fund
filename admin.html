@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Rebuild Fund Admin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: plain single-column control panel, grouped fieldsets, sticky save bar at the bottom */
+:root {
+  color-scheme: light;
+  --bg: #f4f8fb; --surface: #ffffff; --ink: #1d2733; --muted: #5b6876; --line: #dde5ec;
+  --accent: #1b6fb5; --accent-soft: #eaf3fb; --sun: #f2a516; --good: #1e7d4f; --bad: #b3261e;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)); }
+[hidden] { display: none !important; }
+.inner { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px; display: flex; flex-direction: column; gap: 18px; }
+h1 { font-size: 24px; margin: 0; }
+p { margin: 0; }
+.muted { color: var(--muted); font-size: 14px; }
+fieldset { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 0; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+legend { font-weight: 700; padding: 0 6px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: var(--muted); min-width: 0; }
+input, textarea { font: 15px var(--body); padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); min-width: 0; width: 100%; }
+textarea { min-height: 70px; resize: vertical; }
+input:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--sun); outline-offset: 1px; }
+.check { flex-direction: row; align-items: center; gap: 8px; color: var(--ink); font-weight: 500; }
+.check input { width: auto; }
+button { font: 600 14px var(--body); border: 1px solid var(--accent); color: var(--accent); background: #fff; padding: 9px 14px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+button.primary { background: var(--accent); color: #fff; }
+button:disabled { opacity: .5; cursor: default; }
+.row { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+.row > label { flex: 1 1 180px; }
+.list { display: flex; flex-direction: column; gap: 6px; }
+.item { display: flex; gap: 8px; align-items: center; justify-content: space-between; background: var(--accent-soft); border-radius: 8px; padding: 6px 10px; font-size: 14px; }
+.item span { min-width: 0; overflow-wrap: anywhere; }
+.item button { padding: 4px 10px; font-size: 13px; }
+.status { font-size: 14px; }
+.status.ok { color: var(--good); } .status.err { color: var(--bad); }
+.savebar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.savebar .inner { padding-block: 12px; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.big { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="inner">
+  <div>
+    <h1>Rebuild Fund admin</h1>
+    <p class="muted">Edit the details below and press Save. The live site updates about a minute later.</p>
+  </div>
+
+  <fieldset id="connBox">
+    <legend>Connection</legend>
+    <p class="muted">Saved only in this browser. Needs a GitHub token that can write to the site's repository (see README).</p>
+    <div class="grid">
+      <label>GitHub username <input id="cOwner" autocomplete="off" placeholder="beerwithstraw"></label>
+      <label>Repository name <input id="cRepo" autocomplete="off" placeholder="arun-fund"></label>
+      <label>Branch <input id="cBranch" autocomplete="off" value="main"></label>
+      <label>Token <input id="cToken" type="password" autocomplete="off" placeholder="github_pat_…"></label>
+    </div>
+    <div class="row"><button type="button" class="primary" id="connect">Connect and load</button><button type="button" id="forget">Forget token</button><span class="status" id="connStatus"></span></div>
+  </fieldset>
+
+  <div id="editor" hidden>
+    <div class="inner" style="padding:0">
+      <fieldset>
+        <legend>Progress</legend>
+        <div class="grid">
+          <label>Amount raised (₹) <input id="raised" type="number" min="0" inputmode="numeric"></label>
+          <label>Number of donors <input id="donors" type="number" min="0" inputmode="numeric"></label>
+          <label>Goal (₹) <input id="goal" type="number" min="1" inputmode="numeric"></label>
+          <label>Drive closes on <input id="deadline" type="text"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Post an update</legend>
+        <div class="row">
+          <label>Update <input id="updText" type="text" placeholder="₹1.2 lakh raised. The family has found a flat in Vasai."></label>
+          <button type="button" id="addUpd">Add</button>
+        </div>
+        <div class="list" id="updList"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Things the family needs</legend>
+        <div class="row">
+          <label>Item <input id="needText" type="text" placeholder="Winter blankets"></label>
+          <button type="button" id="addNeed">Add</button>
+        </div>
+        <div class="list" id="needList"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Videos</legend>
+        <div class="row">
+          <label>Title <input id="vTitle" type="text" placeholder="A message from Arun"></label>
+          <label>Link <input id="vUrl" type="url" placeholder="https://youtube.com/…"></label>
+          <button type="button" id="addVid">Add</button>
+        </div>
+        <div class="list" id="vidList"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Details</legend>
+        <div class="grid">
+          <label>Full name <input data-k="fullName"></label>
+          <label>Team <input data-k="team"></label>
+          <label>Where the family is staying <input data-k="staying"></label>
+          <label>UPI ID <input data-k="upi"></label>
+          <label>Name on UPI / bank account <input data-k="upiName"></label>
+          <label>Bank name <input data-k="bankName"></label>
+          <label>Account number <input data-k="acct"></label>
+          <label>IFSC <input data-k="ifsc"></label>
+          <label>Your team <input data-k="orgteam"></label>
+          <label>Your phone <input data-k="phone"></label>
+          <label>Drop-off point for items <input data-k="dropoff"></label>
+        </div>
+        <label class="check"><input type="checkbox" id="showBank"> Show bank transfer details on the site</label>
+      </fieldset>
+    </div>
+  </div>
+</div>
+
+<div class="savebar" id="saveBar" hidden>
+  <div class="inner">
+    <div><span class="big" id="sumRaised">₹0</span> <span class="muted" id="sumGoal"></span></div>
+    <div class="row" style="align-items:center"><span class="status" id="saveStatus"></span><button type="button" class="primary" id="save">Save to site</button></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const store = { get(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }, del(k) { try { localStorage.removeItem(k); } catch (e) {} } };
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const b64enc = s => btoa(unescape(encodeURIComponent(s)));
+  const b64dec = s => decodeURIComponent(escape(atob(s.replace(/\n/g, ""))));
+  const inr = n => "₹" + Number(n || 0).toLocaleString("en-IN");
+  const today = () => new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+  const todayFull = () => new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+
+  let D = null, sha = null, dirty = false;
+  ["cOwner", "cRepo", "cBranch", "cToken"].forEach(id => { const v = store.get("rf_" + id); if (v) $(id).value = v; });
+
+  const cfg = () => ({ owner: $("cOwner").value.trim(), repo: $("cRepo").value.trim(), branch: $("cBranch").value.trim() || "main", token: $("cToken").value.trim() });
+  const api = c => `https://api.github.com/repos/${encodeURIComponent(c.owner)}/${encodeURIComponent(c.repo)}/contents/data.json`;
+  const headers = c => ({ "Authorization": "Bearer " + c.token, "Accept": "application/vnd.github+json" });
+  const setStatus = (el, msg, kind) => { el.textContent = msg; el.className = "status" + (kind ? " " + kind : ""); };
+
+  async function load() {
+    const c = cfg();
+    if (!c.owner || !c.repo || !c.token) return setStatus($("connStatus"), "Fill in all four fields.", "err");
+    setStatus($("connStatus"), "Loading…");
+    try {
+      const r = await fetch(api(c) + "?ref=" + encodeURIComponent(c.branch), { headers: headers(c), cache: "no-store" });
+      if (r.status === 401) throw new Error("The token was rejected. Check it hasn't expired.");
+      if (r.status === 404) throw new Error("Couldn't find data.json. Check the username, repository and branch, and that the token can access this repository.");
+      if (!r.ok) throw new Error("GitHub returned an error (" + r.status + ").");
+      const j = await r.json();
+      sha = j.sha; D = JSON.parse(b64dec(j.content));
+      ["cOwner", "cRepo", "cBranch", "cToken"].forEach(id => store.set("rf_" + id, $(id).value.trim()));
+      setStatus($("connStatus"), "Connected.", "ok");
+      $("editor").hidden = false; $("saveBar").hidden = false;
+      fill();
+    } catch (e) { setStatus($("connStatus"), e.message || "Couldn't connect.", "err"); }
+  }
+
+  function fill() {
+    ["raised", "donors", "goal", "deadline"].forEach(k => $(k).value = D[k] ?? "");
+    document.querySelectorAll("[data-k]").forEach(el => el.value = D[el.dataset.k] ?? "");
+    $("showBank").checked = !!D.showBank;
+    lists(); summary();
+  }
+  function lists() {
+    $("updList").innerHTML = (D.updates || []).map((u, i) => `<div class="item"><span><b>${esc(u.date)}</b> ${esc(u.text)}</span><button type="button" data-del="updates" data-i="${i}">Remove</button></div>`).join("");
+    $("needList").innerHTML = (D.needs || []).map((n, i) => `<div class="item"><span>${esc(n)}</span><button type="button" data-del="needs" data-i="${i}">Remove</button></div>`).join("");
+    $("vidList").innerHTML = (D.videos || []).map((v, i) => `<div class="item"><span>${esc(v.title)}</span><button type="button" data-del="videos" data-i="${i}">Remove</button></div>`).join("");
+  }
+  function summary() {
+    $("sumRaised").textContent = inr(D.raised);
+    $("sumGoal").textContent = "of " + inr(D.goal) + (dirty ? " · unsaved changes" : "");
+  }
+  const touch = () => { dirty = true; setStatus($("saveStatus"), ""); summary(); };
+
+  ["raised", "donors", "goal"].forEach(k => $(k).addEventListener("input", e => { D[k] = Math.max(0, Number(e.target.value) || 0); touch(); }));
+  $("deadline").addEventListener("input", e => { D.deadline = e.target.value; touch(); });
+  document.querySelectorAll("[data-k]").forEach(el => el.addEventListener("input", () => { D[el.dataset.k] = el.value; touch(); }));
+  $("showBank").addEventListener("change", e => { D.showBank = e.target.checked; touch(); });
+
+  $("addUpd").onclick = () => { const t = $("updText").value.trim(); if (!t) return; (D.updates = D.updates || []).unshift({ date: today(), text: t }); $("updText").value = ""; lists(); touch(); };
+  $("addNeed").onclick = () => { const t = $("needText").value.trim(); if (!t) return; (D.needs = D.needs || []).push(t); $("needText").value = ""; lists(); touch(); };
+  $("addVid").onclick = () => {
+    const t = $("vTitle").value.trim(), u = $("vUrl").value.trim();
+    if (!t || !/^https:\/\//i.test(u)) return setStatus($("saveStatus"), "Add a title and a link that starts with https://", "err");
+    (D.videos = D.videos || []).push({ title: t, url: u }); $("vTitle").value = ""; $("vUrl").value = ""; lists(); touch();
+  };
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-del]"); if (!b) return;
+    D[b.dataset.del].splice(+b.dataset.i, 1); lists(); touch();
+  });
+
+  $("save").onclick = async () => {
+    if (!D) return;
+    if (!D.goal) return setStatus($("saveStatus"), "Set a goal above zero.", "err");
+    const c = cfg(); $("save").disabled = true; setStatus($("saveStatus"), "Saving…");
+    D.updated = todayFull();
+    try {
+      const r = await fetch(api(c), { method: "PUT", headers: { ...headers(c), "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "Update fundraiser: " + inr(D.raised) + " raised", content: b64enc(JSON.stringify(D, null, 2) + "\n"), sha, branch: c.branch }) });
+      if (r.status === 409) throw new Error("Someone saved a newer version. Press Connect and load, then make your change again.");
+      if (r.status === 401 || r.status === 403) throw new Error("The token can't write to this repository. Check its permissions.");
+      if (!r.ok) throw new Error("GitHub returned an error (" + r.status + ").");
+      sha = (await r.json()).content.sha; dirty = false; summary();
+      setStatus($("saveStatus"), "Saved. The site updates in about a minute.", "ok");
+    } catch (e) { setStatus($("saveStatus"), e.message || "Couldn't save.", "err"); }
+    $("save").disabled = false;
+  };
+
+  $("connect").onclick = load;
+  $("forget").onclick = () => { store.del("rf_cToken"); $("cToken").value = ""; setStatus($("connStatus"), "Token removed from this browser.", "ok"); };
+  window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+  if (cfg().token && cfg().owner && cfg().repo) load();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "name": "Arun",
+  "fullName": "[Arun's full name]",
+  "team": "[Team / department]",
+  "flat": "903",
+  "family": ["Arun", "His wife", "Child, 14", "Child, 10", "Child, 5"],
+  "staying": "[staying with relatives]",
+  "upi": "[upi-id@bank]",
+  "upiName": "[Name on UPI account]",
+  "showBank": true,
+  "bankName": "[Bank name]",
+  "acct": "[Account number]",
+  "ifsc": "[IFSC code]",
+  "goal": 500000,
+  "raised": 0,
+  "donors": 0,
+  "deadline": "[3 Nov 2026]",
+  "updated": "20 Oct 2026",
+  "organiser": "Pulkit Agarwal",
+  "orgteam": "[Your team]",
+  "phone": "[phone number]",
+  "dropoff": "[Drop-off point, e.g. 4th floor pantry, office name]",
+  "photos": {
+    "family": "images/family.jpg",
+    "arun": "images/arun.jpg",
+    "qr": "images/upi-qr.png"
+  },
+  "needs": [
+    "School bags, books, notebooks and stationery for ages 5, 10 and 14",
+    "School uniforms and shoes",
+    "Toys, games and books for the children",
+    "Clothes and footwear for the whole family",
+    "Bedding, mattresses and towels",
+    "Kitchen utensils, gas stove and basic groceries",
+    "Small appliances like a fan, mixer or iron"
+  ],
+  "updates": [
+    { "date": "20 Oct", "text": "Drive opened. Thank you for reading and sharing." }
+  ],
+  "videos": [
+    { "title": "Live: Fire at 14-storey building in Nalasopara", "url": "https://www.youtube.com/watch?v=ZczivZtqyc4" },
+    { "title": "Nalasopara building fire: the full story", "url": "https://www.youtube.com/watch?v=214Buzus1pc" },
+    { "title": "Fire at 14-storey building in Nalasopara (Hindi)", "url": "https://www.youtube.com/watch?v=z8weeNsYClc" }
+  ]
+}

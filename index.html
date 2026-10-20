@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Help Arun's Family Rebuild</title>
+<meta name="description" content="Arun's home at Imperial Heights, Nalasopara was destroyed in the fire on 13 October 2026. Help his family of five start again.">
+<meta property="og:title" content="Help Arun's family rebuild their home">
+<meta property="og:description" content="A fire at Imperial Heights, Nalasopara destroyed their home. Every rupee goes straight to the family.">
+<meta property="og:image" content="images/family.jpg">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: bright sky-to-white header band with the family photo, one reading column, prominent giving card. Single light theme on purpose. */
+:root {
+  color-scheme: light;
+  --bg: #ffffff; --sky: #e6f2fb; --surface: #ffffff; --ink: #1d2733; --muted: #5b6876; --line: #dde5ec;
+  --accent: #1b6fb5; --accent-soft: #eaf3fb; --sun: #f2a516; --sun-soft: #fff4dc; --ph: #fff1c9; --ph-ink: #7a5200;
+  --display: "Young Serif", Georgia, "Times New Roman", serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; padding-top: env(safe-area-inset-top, 0px); }
+img { max-width: 100%; display: block; }
+[hidden] { display: none !important; }
+.band { background: linear-gradient(180deg, var(--sky) 0%, #f4f9fd 70%, var(--bg) 100%); }
+.inner { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.hero { padding-block: 44px 28px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: center; }
+.hero > div { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.hero figure { margin: 0; min-width: 0; }
+.hero figure img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; box-shadow: 0 14px 34px -18px rgba(27,111,181,.45); }
+.hero figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+main.inner { padding-block: 8px 64px; display: flex; flex-direction: column; gap: 44px; }
+h1, h2 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(30px, 5.6vw, 44px); }
+h2 { font-size: 23px; }
+p { margin: 0; }
+.eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.lede { font-size: 18px; color: var(--muted); }
+section { display: flex; flex-direction: column; gap: 14px; }
+.story p + p { margin-top: 12px; }
+.ph { background: var(--ph); color: var(--ph-ink); border-radius: 4px; padding: 0 4px; font-weight: 600; }
+
+.give { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 22px; box-shadow: 0 10px 30px -18px rgba(27,111,181,.35); }
+.amounts { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px; font-variant-numeric: tabular-nums; }
+.raised { font-family: var(--display); font-size: 34px; }
+.goal { color: var(--muted); }
+.bar { height: 12px; border-radius: 99px; background: var(--sun-soft); overflow: hidden; margin-top: 8px; }
+.bar i { display: block; height: 100%; background: var(--sun); border-radius: 99px; width: 1.5%; transition: width 1s ease; }
+.meta { font-size: 14px; color: var(--muted); }
+.stats { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 8px; font-size: 14px; color: var(--muted); }
+.stats b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.methods { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; }
+.method { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.label { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 16px; background: var(--accent-soft); padding: 8px 12px; border-radius: 8px; user-select: all; word-break: break-all; min-width: 0; }
+button, .btn { font: 600 14px var(--body); border: 1px solid var(--accent); color: var(--accent); background: var(--surface); padding: 8px 14px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; }
+.btn.primary { background: var(--accent); color: #fff; }
+button:focus-visible, .btn:focus-visible, a:focus-visible { outline: 2px solid var(--sun); outline-offset: 2px; }
+.qr { width: 150px; max-width: 100%; }
+.qr img { width: 100%; aspect-ratio: 1; object-fit: contain; border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 6px; }
+.qr p { font-size: 12px; color: var(--muted); text-align: center; margin-top: 4px; }
+.note { font-size: 14px; background: var(--sun-soft); padding: 10px 14px; border-radius: 8px; }
+.bank { font-size: 14px; display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; margin: 0; }
+.bank dt { color: var(--muted); } .bank dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+.meet { display: grid; grid-template-columns: 140px 1fr; gap: 20px; align-items: center; }
+.meet img { width: 140px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 12px; }
+.meet > div { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.family { display: flex; flex-wrap: wrap; gap: 8px; }
+.family span { background: var(--accent-soft); color: var(--accent); font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 99px; }
+
+.uses { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px 24px; }
+.uses li { padding-left: 14px; border-left: 3px solid var(--sun); }
+.uses b { display: block; font-weight: 600; }
+.uses span { font-size: 14px; color: var(--muted); }
+.needs { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+
+.videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+.vid { display: flex; gap: 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--ink); min-width: 0; }
+.vid:hover { border-color: var(--accent); }
+.play { flex: none; width: 44px; height: 32px; border-radius: 8px; background: #e62117; position: relative; }
+.play::after { content: ""; position: absolute; left: 18px; top: 9px; border-left: 11px solid #fff; border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+.vid span { font-size: 14px; font-weight: 600; line-height: 1.35; min-width: 0; }
+.vid small { display: block; font-weight: 400; color: var(--muted); }
+
+.updates { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.updates li { display: grid; grid-template-columns: 70px 1fr; gap: 12px; }
+.updates time { font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 2px; font-variant-numeric: tabular-nums; }
+footer { border-top: 1px solid var(--line); padding-top: 18px; font-size: 14px; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+footer a { color: var(--accent); }
+.loading { padding: 80px 16px; text-align: center; color: var(--muted); }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 14px; z-index: 20; }
+
+@media (max-width: 640px) {
+  .hero { grid-template-columns: 1fr; padding-block: 32px 20px; }
+  .hero figure { order: -1; }
+  .methods, .uses { grid-template-columns: 1fr; }
+  .meet { grid-template-columns: 96px 1fr; gap: 14px; }
+  .meet img { width: 96px; }
+  .give { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+</head>
+<body>
+<div id="app"><p class="loading">Loading…</p></div>
+<div class="toast" id="toast" hidden></div>
+<script>
+(async () => {
+  const app = document.getElementById("app");
+  let S;
+  try {
+    const r = await fetch("data.json?v=" + Date.now(), { cache: "no-store" });
+    S = await r.json();
+  } catch (e) {
+    app.innerHTML = '<p class="loading">The page could not load its details. Please refresh.</p>';
+    return;
+  }
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const f = k => { const v = String(S[k] ?? ""); return v.startsWith("[") ? `<span class="ph">${esc(v)}</span>` : esc(v); };
+  const inr = n => "₹" + Number(n || 0).toLocaleString("en-IN");
+  const pct = Math.min(100, S.goal ? S.raised / S.goal * 100 : 0);
+  const safeUrl = u => /^https:\/\//i.test(u || "") ? u : "#";
+  const P = S.photos || {};
+  const upiLink = "upi://pay?pa=" + encodeURIComponent(S.upi) + "&pn=" + encodeURIComponent(S.upiName || S.name) + "&tn=" + encodeURIComponent("For Arun family");
+
+  app.innerHTML = `
+  <div class="band"><div class="inner hero">
+    <div>
+      <span class="eyebrow">Colleague relief drive · Nalasopara fire</span>
+      <h1>Help ${f("name")}'s family rebuild their home</h1>
+      <p class="lede">On the night of 13 October, a fire at Imperial Heights, Nalasopara destroyed their home and everything in it. ${f("name")}, his wife and their three children are safe, and now have to start again from nothing.</p>
+      <div class="row"><a class="btn primary" href="#give">Donate now</a></div>
+    </div>
+    <figure ${P.family ? "" : "hidden"}>
+      <img src="${esc(P.family)}" alt="${esc(S.name)} with his wife and three children" onerror="this.closest('figure').hidden=true">
+      <figcaption>${f("name")} and his family</figcaption>
+    </figure>
+  </div></div>
+  <main class="inner">
+    <div class="give" id="give">
+      <div>
+        <div class="amounts"><span class="raised">${inr(S.raised)}</span><span class="goal">raised of ${inr(S.goal)} goal</span></div>
+        <div class="bar" role="progressbar" aria-label="Amount raised" aria-valuenow="${Math.round(pct)}" aria-valuemin="0" aria-valuemax="100"><i id="fill"></i></div>
+        <div class="stats">
+          <span><b>${Math.round(pct)}%</b> of goal</span>
+          ${S.donors ? `<span><b>${Number(S.donors).toLocaleString("en-IN")}</b> people have given</span>` : ""}
+          <span>Closes ${f("deadline")}</span>
+        </div>
+        <p class="meta" style="margin-top:4px">Total last updated ${f("updated")}</p>
+      </div>
+      <div class="methods">
+        <div class="method">
+          <span class="label">Pay by UPI</span>
+          <div class="row"><span class="code" id="upi">${f("upi")}</span><button type="button" id="copyUpi">Copy UPI ID</button></div>
+          <span class="meta">Account name: ${f("upiName")}</span>
+          <div class="row" style="margin-top:6px"><a class="btn primary" href="${esc(upiLink)}">Open in UPI app</a></div>
+          <span class="meta">On a phone this opens GPay, PhonePe or Paytm. If nothing opens, copy the UPI ID instead.</span>
+        </div>
+        <div class="qr" ${P.qr ? "" : "hidden"}>
+          <img src="${esc(P.qr)}" alt="UPI QR code for ${esc(S.name)}" onerror="this.closest('.qr').hidden=true">
+          <p>Scan with any UPI app</p>
+        </div>
+      </div>
+      <p class="note">Please put <b>your name</b> in the payment note so we can thank you. Every rupee goes straight to ${f("name")}'s own account.</p>
+      <div class="method" ${S.showBank ? "" : "hidden"}>
+        <span class="label">Or bank transfer</span>
+        <dl class="bank"><dt>Account name</dt><dd>${f("upiName")}</dd><dt>Bank</dt><dd>${f("bankName")}</dd><dt>Account no.</dt><dd>${f("acct")}</dd><dt>IFSC</dt><dd>${f("ifsc")}</dd></dl>
+      </div>
+    </div>
+
+    <section>
+      <h2>Meet ${f("name")}</h2>
+      <div class="meet">
+        <img src="${esc(P.arun)}" alt="${esc(S.name)}" onerror="this.hidden=true" ${P.arun ? "" : "hidden"}>
+        <div>
+          <p><b>${f("fullName")}</b> works with us in ${f("team")}.</p>
+          <div class="family">${(S.family || []).map(m => `<span>${esc(m)}</span>`).join("")}</div>
+          <p class="meta">A family of five, now ${f("staying")}.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story">
+      <h2>What happened</h2>
+      <p>${f("name")} lived with his wife and three children, aged about 5, 10 and 14, in a 1BHK flat, number ${f("flat")}, on the 9th floor of Imperial Heights on the Nalasopara–Vasai Link Road.</p>
+      <p>Late on 13 October a fire spread through the upper floors of the building. The family got out safely, but their home was completely burnt: furniture, clothes, appliances, documents, school books and the children's toys. They are now ${f("staying")} while they look for a new place to live.</p>
+    </section>
+
+    <section>
+      <h2>What your money will cover</h2>
+      <ul class="uses">
+        <li><b>A new home</b><span>Rent and security deposit for a 1BHK</span></li>
+        <li><b>School for three children</b><span>Books, uniforms, bags and fees</span></li>
+        <li><b>Furniture and appliances</b><span>Beds, a fridge, a stove, fans</span></li>
+        <li><b>Daily essentials</b><span>Clothes, bedding, kitchen basics, documents</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Other ways to help</h2>
+      <p>Anything that helps a family of five set up a home again is welcome. Things they need most:</p>
+      <ul class="needs">${(S.needs || []).map(n => `<li>${esc(n)}</li>`).join("")}</ul>
+      <p>Drop items at ${f("dropoff")}, or message ${f("organiser")} at ${f("phone")} to arrange pickup. Leads on a 1BHK to rent near Nalasopara or Vasai also help.</p>
+    </section>
+
+    <section ${S.videos && S.videos.length ? "" : "hidden"}>
+      <h2>Watch</h2>
+      <p class="meta">News coverage of the fire. Videos open on YouTube.</p>
+      <div class="videos">${(S.videos || []).map(v => `
+        <a class="vid" href="${esc(safeUrl(v.url))}" target="_blank" rel="noopener">
+          <i class="play" aria-hidden="true"></i><span>${esc(v.title)}<small>YouTube</small></span>
+        </a>`).join("")}</div>
+    </section>
+
+    <section ${S.updates && S.updates.length ? "" : "hidden"}>
+      <h2>Updates</h2>
+      <ul class="updates">${(S.updates || []).map(u => `<li><time>${esc(u.date)}</time><p>${esc(u.text)}</p></li>`).join("")}</ul>
+    </section>
+
+    <footer>
+      <span>Organised by ${f("organiser")}, ${f("orgteam")}.</span>
+      <span>Read more: <a href="https://aninews.in/news/national/general-news/maharashtra-fire-breaks-out-at-high-rise-building-in-nalasopara-15-rescued20261014061514/" target="_blank" rel="noopener">ANI report on the Imperial Heights fire</a></span>
+    </footer>
+  </main>`;
+
+  requestAnimationFrame(() => { document.getElementById("fill").style.width = Math.max(pct, 1.5) + "%"; });
+  const toast = document.getElementById("toast");
+  const say = m => { toast.textContent = m; toast.hidden = false; clearTimeout(say.t); say.t = setTimeout(() => toast.hidden = true, 2200); };
+  document.getElementById("copyUpi").addEventListener("click", () => {
+    navigator.clipboard.writeText(S.upi).then(() => say("UPI ID copied")).catch(() => {
+      const r = document.createRange(); r.selectNodeContents(document.getElementById("upi"));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r); say("Selected. Press copy.");
+    });
+  });
+})();
+</script>
+</body>
+</html>
