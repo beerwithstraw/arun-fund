@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Rebuild Fund Admin</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap">
 <style>
 /* Layout: plain single-column control panel, grouped fieldsets, sticky save bar at the bottom */
 :root {
   color-scheme: light;
-  --bg: #f4f8fb; --surface: #ffffff; --ink: #1d2733; --muted: #5b6876; --line: #dde5ec;
-  --accent: #1b6fb5; --accent-soft: #eaf3fb; --sun: #f2a516; --good: #1e7d4f; --bad: #b3261e;
-  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bg: #f7f4f0; --surface: #ffffff; --ink: #22303e; --muted: #667180; --line: #e6e0d8;
+  --accent: #23616d; --accent-soft: #e5efef; --sun: #e39a2b; --good: #1e7d4f; --bad: #b3261e;
+  --body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
@@ -26,12 +26,12 @@ fieldset { background: var(--surface); border: 1px solid var(--line); border-rad
 legend { font-weight: 700; padding: 0 6px; }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: var(--muted); min-width: 0; }
-input, textarea { font: 15px var(--body); padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); min-width: 0; width: 100%; }
+input, textarea { font: 16px var(--body); padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); min-width: 0; width: 100%; }
 textarea { min-height: 70px; resize: vertical; }
 input:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--sun); outline-offset: 1px; }
 .check { flex-direction: row; align-items: center; gap: 8px; color: var(--ink); font-weight: 500; }
 .check input { width: auto; }
-button { font: 600 14px var(--body); border: 1px solid var(--accent); color: var(--accent); background: #fff; padding: 9px 14px; border-radius: 8px; cursor: pointer; white-space: nowrap; }
+button { font: 700 15px var(--body); border: 1px solid var(--accent); color: var(--accent); background: #fff; padding: 0 16px; min-height: 44px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
 button.primary { background: var(--accent); color: #fff; }
 button:disabled { opacity: .5; cursor: default; }
 .row { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
@@ -123,6 +123,7 @@ button:disabled { opacity: .5; cursor: default; }
           <label>Drop-off point for items <input data-k="dropoff"></label>
         </div>
         <label class="check"><input type="checkbox" id="showBank"> Show bank transfer details on the site</label>
+        <label class="check"><input type="checkbox" id="preview"> Show the "Preview, not live yet" banner (untick when you launch)</label>
       </fieldset>
     </div>
   </div>
@@ -175,7 +176,7 @@ button:disabled { opacity: .5; cursor: default; }
   function fill() {
     ["raised", "donors", "goal", "deadline"].forEach(k => $(k).value = D[k] ?? "");
     document.querySelectorAll("[data-k]").forEach(el => el.value = D[el.dataset.k] ?? "");
-    $("showBank").checked = !!D.showBank;
+    $("showBank").checked = !!D.showBank; $("preview").checked = !!D.preview;
     lists(); summary();
   }
   function lists() {
@@ -193,6 +194,7 @@ button:disabled { opacity: .5; cursor: default; }
   $("deadline").addEventListener("input", e => { D.deadline = e.target.value; touch(); });
   document.querySelectorAll("[data-k]").forEach(el => el.addEventListener("input", () => { D[el.dataset.k] = el.value; touch(); }));
   $("showBank").addEventListener("change", e => { D.showBank = e.target.checked; touch(); });
+  $("preview").addEventListener("change", e => { D.preview = e.target.checked; touch(); });
 
   $("addUpd").onclick = () => { const t = $("updText").value.trim(); if (!t) return; (D.updates = D.updates || []).unshift({ date: today(), text: t }); $("updText").value = ""; lists(); touch(); };
   $("addNeed").onclick = () => { const t = $("needText").value.trim(); if (!t) return; (D.needs = D.needs || []).push(t); $("needText").value = ""; lists(); touch(); };

@@ -1,4 +1,5 @@
 {
+  "preview": true,
   "name": "Arun",
   "fullName": "[Arun's full name]",
   "team": "[Team / department]",
@@ -7,32 +8,34 @@
   "staying": "[staying with relatives]",
   "upi": "[upi-id@bank]",
   "upiName": "[Name on UPI account]",
-  "showBank": true,
+  "showBank": false,
   "bankName": "[Bank name]",
   "acct": "[Account number]",
   "ifsc": "[IFSC code]",
   "goal": 500000,
-  "raised": 0,
-  "donors": 0,
-  "deadline": "[3 Nov 2026]",
+  "raised": 124500,
+  "donors": 46,
+  "deadline": "3 Nov 2026",
   "updated": "20 Oct 2026",
   "organiser": "Pulkit Agarwal",
   "orgteam": "[Your team]",
   "phone": "[phone number]",
-  "dropoff": "[Drop-off point, e.g. 4th floor pantry, office name]",
+  "dropoff": "[Drop-off point, e.g. 4th floor pantry]",
   "photos": {
     "family": "images/family.jpg",
     "arun": "images/arun.jpg",
     "qr": "images/upi-qr.png"
   },
   "needs": [
-    "School bags, books, notebooks and stationery for ages 5, 10 and 14",
+    "School bags and stationery",
+    "Books for ages 5, 10 and 14",
     "School uniforms and shoes",
-    "Toys, games and books for the children",
-    "Clothes and footwear for the whole family",
-    "Bedding, mattresses and towels",
-    "Kitchen utensils, gas stove and basic groceries",
-    "Small appliances like a fan, mixer or iron"
+    "Toys and games",
+    "Clothes for all five",
+    "Bedding and towels",
+    "Kitchen utensils",
+    "A gas stove",
+    "Fan, mixer or iron"
   ],
   "updates": [
     { "date": "20 Oct", "text": "Drive opened. Thank you for reading and sharing." }
