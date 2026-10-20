@@ -4,22 +4,27 @@
   "fullName": "[Arun's full name]",
   "team": "[Team / department]",
   "flat": "903",
-  "family": ["Arun", "His wife", "Child, 14", "Child, 10", "Child, 5"],
+  "family": [
+    "Arun",
+    "His wife",
+    "Child, 14",
+    "Child, 10",
+    "Child, 5"
+  ],
   "staying": "[staying with relatives]",
   "upi": "[upi-id@bank]",
   "upiName": "[Name on UPI account]",
-  "showBank": false,
+  "showBank": true,
   "bankName": "[Bank name]",
   "acct": "[Account number]",
   "ifsc": "[IFSC code]",
   "goal": 500000,
   "raised": 124500,
   "donors": 46,
-  "deadline": "3 Nov 2026",
+  "deadline": "30 Nov 2026",
   "updated": "20 Oct 2026",
-  "organiser": "Pulkit Agarwal",
-  "orgteam": "[Your team]",
-  "phone": "[phone number]",
+  "organiser": "Rohit Morye",
+  "phone": "9920820538",
   "dropoff": "[Drop-off point, e.g. 4th floor pantry]",
   "photos": {
     "family": "images/family.jpg",
@@ -38,11 +43,24 @@
     "Fan, mixer or iron"
   ],
   "updates": [
-    { "date": "20 Oct", "text": "Drive opened. Thank you for reading and sharing." }
+    {
+      "date": "20 Oct",
+      "text": "Drive opened. Thank you for reading and sharing."
+    }
   ],
   "videos": [
-    { "title": "Live: Fire at 14-storey building in Nalasopara", "url": "https://www.youtube.com/watch?v=ZczivZtqyc4" },
-    { "title": "Nalasopara building fire: the full story", "url": "https://www.youtube.com/watch?v=214Buzus1pc" },
-    { "title": "Fire at 14-storey building in Nalasopara (Hindi)", "url": "https://www.youtube.com/watch?v=z8weeNsYClc" }
-  ]
+    {
+      "title": "Live: Fire at 14-storey building in Nalasopara",
+      "url": "https://www.youtube.com/watch?v=ZczivZtqyc4"
+    },
+    {
+      "title": "Nalasopara building fire: the full story",
+      "url": "https://www.youtube.com/watch?v=214Buzus1pc"
+    },
+    {
+      "title": "Fire at 14-storey building in Nalasopara (Hindi)",
+      "url": "https://www.youtube.com/watch?v=z8weeNsYClc"
+    }
+  ],
+  "email": "Rmorye@its.jnj.com"
 }
