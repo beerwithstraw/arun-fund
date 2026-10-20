@@ -54,7 +54,7 @@ a { color: var(--teal); }
 .topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(247,244,240,.92); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 31; }
 .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: var(--ink); text-decoration: none; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; white-space: nowrap; min-width: 0; color: var(--ink); text-decoration: none; }
 .brand svg { flex: none; }
 .wrap { max-width: 1140px; margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter-r); }
 
@@ -94,36 +94,42 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .fact span { margin-top: 0; font-size: 14px; }
 }
 /* Donate card */
-.give { background: var(--surface); border-radius: var(--r-lg); padding: 22px; box-shadow: 0 1px 0 var(--line), 0 18px 40px -24px rgba(34,48,62,.35); display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 80px; }
-.amount { font-family: var(--display); font-size: 34px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.give { background: var(--surface); border-radius: var(--r-lg); padding: 20px; box-shadow: 0 1px 0 var(--line), 0 18px 40px -24px rgba(34,48,62,.35); display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 80px; }
+.give-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.share-mini { display: flex; gap: 8px; flex: none; }
+.icon-btn { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--line); background: var(--surface); color: var(--teal); cursor: pointer; padding: 0; text-decoration: none; }
+.icon-btn:hover { border-color: var(--teal); }
+.icon-btn.wa { color: var(--wa); }
+.icon-btn.wa:hover { border-color: var(--wa); }
+.amount { font-family: var(--display); font-size: 32px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .of { color: var(--muted); font-size: 15px; margin-top: 2px; }
 .bar { height: 10px; background: var(--marigold-soft); border-radius: 99px; overflow: hidden; }
 .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #eab04f, var(--marigold)); border-radius: 99px; transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
-.stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 12px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 10px; }
 .stats div + div { border-left: 1px solid var(--line); }
-.stats b { display: block; font-size: 18px; font-variant-numeric: tabular-nums; }
-.stats span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
-.pay { display: flex; flex-direction: column; gap: 10px; }
+.stats b { display: block; font-size: 17px; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.stats span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+.pay { display: flex; flex-direction: column; gap: 8px; }
 .tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border-radius: 999px; padding: 4px; gap: 4px; }
-.tabs button { font: 700 15px var(--body); border: 0; background: transparent; color: var(--muted); min-height: 40px; border-radius: 999px; cursor: pointer; }
+.tabs button { font: 700 15px var(--body); border: 0; background: transparent; color: var(--muted); min-height: 38px; border-radius: 999px; cursor: pointer; }
 .tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(34,48,62,.15); }
-.copyrow { display: grid; grid-template-columns: minmax(0,1fr) auto; grid-template-areas: "lbl btn" "val btn"; column-gap: 10px; align-items: center; background: var(--bg); border-radius: var(--r-sm); padding: 8px 8px 8px 14px; }
-.copyrow .lbl { grid-area: lbl; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.copyrow code { grid-area: val; font: 600 15px ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; user-select: all; min-width: 0; }
-.copyrow .btn { grid-area: btn; min-height: 38px; padding: 0 14px; font-size: 14px; }
+.copyrow { display: grid; grid-template-columns: minmax(0,1fr) auto; grid-template-areas: "lbl btn" "val btn"; column-gap: 10px; align-items: center; background: var(--bg); border-radius: var(--r-sm); padding: 6px 6px 6px 12px; min-height: 52px; }
+.copyrow .lbl { grid-area: lbl; font-size: 11px; line-height: 1.4; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.copyrow code { grid-area: val; line-height: 1.35; font: 600 14px ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; user-select: all; min-width: 0; }
+.copyrow .btn { grid-area: btn; min-height: 36px; padding: 0 14px; font-size: 14px; }
 .btn-cta { background: var(--marigold); color: #2a1c05; }
 .btn-cta:hover { background: #d48b1c; }
 .upi-row { display: flex; align-items: center; gap: 8px; background: var(--bg); border-radius: var(--r-sm); padding: 6px 6px 6px 14px; }
 .upi-row code { flex: 1; min-width: 0; font: 600 15px ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; user-select: all; }
 .upi-row .btn { min-height: 38px; padding: 0 14px; font-size: 14px; }
-.qr { display: flex; gap: 14px; align-items: center; background: var(--bg); border-radius: var(--r-md); padding: 12px; }
-.qr img { width: 112px; height: 112px; border-radius: 8px; background: #fff; flex: none; }
+.qr { display: flex; gap: 14px; align-items: center; background: var(--bg); border-radius: var(--r-md); padding: 10px; }
+.qr img { width: 104px; height: 104px; border-radius: 8px; background: #fff; flex: none; }
 .qr p { font-size: 14px; color: var(--muted); line-height: 1.45; }
 .qr b { color: var(--ink); display: block; font-size: 15px; }
 details.qr-toggle summary { cursor: pointer; font-size: 15px; font-weight: 700; color: var(--teal); list-style: none; padding: 4px 0; }
 details.qr-toggle summary::-webkit-details-marker { display: none; }
 details.qr-toggle[open] summary { margin-bottom: 10px; }
-.assure { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.assure { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--muted); line-height: 1.45; }
 .assure svg { flex: none; margin-top: 2px; }
 .share { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
@@ -190,8 +196,16 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
 
 /* Pointer-based payment emphasis: phones get the UPI app button, laptops get the QR */
 .only-touch { display: none; }
-@media (pointer: coarse) { .only-touch { display: flex; } .only-fine { display: none; } }
+@media (pointer: coarse), (max-width: 600px) { .only-touch { display: flex; } .only-fine { display: none; } }
 
+@media (max-width: 399px) {
+  .brand { font-size: 15px; gap: 6px; }
+  .brand svg { width: 24px; height: 24px; }
+  .topbar .btn-sm { padding: 0 14px; }
+  .topbar .btn-sm svg { display: none; }
+  .uses { gap: 10px; }
+  .use { padding: 14px; }
+}
 @media (min-width: 640px) {
   .hero { margin: 24px 0 0; }
   .hero img { border-radius: var(--r-lg); }
@@ -205,7 +219,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
   .intro { grid-column: 1; grid-row: 1; }
   .rest { grid-column: 1; grid-row: 2; }
   .side { grid-column: 2; grid-row: 1 / span 2; }
-  .give { position: sticky; top: 84px; margin-top: 24px; }
+  .give { position: sticky; top: 84px; margin-top: 24px; max-height: calc(100vh - 100px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
   .dock { display: none; }
   .toast { bottom: 28px; }
 }
@@ -257,9 +271,15 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
 
   const giveCard = `
     <div class="give" id="give">
-      <div>
-        <div class="amount">${inr(S.raised)}</div>
-        <div class="of">raised of ${inr(S.goal)} goal</div>
+      <div class="give-head">
+        <div>
+          <div class="amount">${inr(S.raised)}</div>
+          <div class="of">raised of ${inr(S.goal)} goal</div>
+        </div>
+        <div class="share-mini" aria-label="Share this page">
+          <a class="icon-btn wa" href="https://wa.me/?text=${encodeURIComponent(shareText)}" target="_blank" rel="noopener" aria-label="Share on WhatsApp" title="Share on WhatsApp">${icon.wa}</a>
+          <button type="button" class="icon-btn" id="copyLink" aria-label="Copy link" title="Copy link">${icon.link}</button>
+        </div>
       </div>
       <div class="bar" role="progressbar" aria-label="Raised so far" aria-valuenow="${Math.round(pct)}" aria-valuemin="0" aria-valuemax="100"><i class="fill"></i></div>
       <div class="stats">
@@ -287,14 +307,9 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
         <div class="copyrow"><span class="lbl">Account name</span><code>${f("upiName")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.upiName)}" data-msg="Name copied">Copy</button></div>
         <div class="copyrow"><span class="lbl">Account number</span><code>${f("acct")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.acct)}" data-msg="Account number copied">Copy</button></div>
         <div class="copyrow"><span class="lbl">IFSC</span><code>${f("ifsc")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.ifsc)}" data-msg="IFSC copied">Copy</button></div>
-        <div class="copyrow"><span class="lbl">Bank</span><code>${f("bankName")}</code></div>
-        <p class="quiet" style="font-size:14px">Works with NEFT, IMPS or RTGS from any bank app.</p>
+        <div class="copyrow"><span class="lbl">Bank · NEFT / IMPS</span><code>${f("bankName")}</code></div>
       </div>
-      <div class="assure">${icon.shield}<span>Money goes straight to ${f("name")}'s own bank account. Please add your name in the payment note so we can thank you.</span></div>
-      <div class="share">
-        <a class="btn btn-wa btn-sm" href="https://wa.me/?text=${encodeURIComponent(shareText)}" target="_blank" rel="noopener">${icon.wa} WhatsApp</a>
-        <button type="button" class="btn btn-ghost btn-sm" id="copyLink">${icon.link} Copy link</button>
-      </div>
+      <div class="assure">${icon.shield}<span>Goes straight to ${f("name")}'s bank account. Add your name in the payment note so we can thank you.</span></div>
     </div>`;
 
   app.innerHTML = `
