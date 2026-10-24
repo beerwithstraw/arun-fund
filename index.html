@@ -115,7 +115,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(34,48,62,.15); }
 .copyrow { display: grid; grid-template-columns: minmax(0,1fr) auto; grid-template-areas: "lbl btn" "val btn"; column-gap: 10px; align-items: center; background: var(--bg); border-radius: var(--r-sm); padding: 6px 6px 6px 12px; min-height: 52px; }
 .copyrow .lbl { grid-area: lbl; font-size: 11px; line-height: 1.4; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.copyrow code { grid-area: val; line-height: 1.35; font: 700 16px var(--body); letter-spacing: .01em; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; user-select: all; min-width: 0; }
+.copyrow code { grid-area: val; line-height: 1.35; font: 700 16px var(--body); letter-spacing: .01em; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: break-word; user-select: all; min-width: 0; }
 .copyrow .btn { grid-area: btn; min-height: 36px; padding: 0 14px; font-size: 14px; }
 .btn-cta { background: var(--marigold); color: #2a1c05; }
 .btn-cta:hover { background: #d48b1c; }
@@ -129,6 +129,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 details.qr-toggle summary { cursor: pointer; font-size: 15px; font-weight: 700; color: var(--teal); list-style: none; padding: 4px 0; }
 details.qr-toggle summary::-webkit-details-marker { display: none; }
 details.qr-toggle[open] summary { margin-bottom: 10px; }
+.pay-hint { font-size: 14px; color: var(--muted); line-height: 1.45; }
 .assure { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--muted); line-height: 1.45; }
 .assure svg { flex: none; margin-top: 2px; }
 .share { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -265,7 +266,6 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
     ``,
     `Every rupee goes directly to ${S.name}'s bank account. Please contribute if you can, and share this with others. Thank you.`
   ].join("\n");
-  const upiLink = "upi://pay?pa=" + encodeURIComponent(S.upi) + "&pn=" + encodeURIComponent(S.upiName || S.name) + "&tn=" + encodeURIComponent("For Arun's family") + "&cu=INR";
   const initials = String(S.organiser || "").split(/\s+/).map(w => w[0] || "").join("").slice(0, 2).toUpperCase();
 
   const icon = {
@@ -303,12 +303,12 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
         <button type="button" role="tab" id="tab-bank" aria-selected="false" aria-controls="pane-bank">Bank transfer</button>
       </div>
       <div class="pay" id="pane-upi" role="tabpanel" aria-labelledby="tab-upi">
-        <a class="btn btn-primary btn-block only-touch" href="${esc(upiLink)}">Pay with your UPI app</a>
         <div class="qr only-fine" ${P.qr ? "" : "hidden"}>
           <img src="${esc(P.qr)}" alt="UPI QR code" onerror="this.closest('.qr').hidden=true">
           <p><b>Scan with any UPI app</b>GPay, PhonePe, Paytm or your bank's app.</p>
         </div>
-        <div class="copyrow"><span class="lbl">UPI ID</span><code>${f("upi")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.upi)}" data-msg="UPI ID copied">Copy</button></div>
+        <div class="copyrow"><span class="lbl">UPI ID</span><code>${esc(S.upi).replace("@", "@<wbr>")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.upi)}" data-msg="UPI ID copied">Copy</button></div>
+        <p class="pay-hint only-touch">Copy the UPI ID and paste it in GPay, PhonePe, Paytm or your bank's app.</p>
         <details class="qr-toggle only-touch" ${P.qr ? "" : "hidden"}>
           <summary>Show QR code</summary>
           <div class="qr"><img src="${esc(P.qr)}" alt="UPI QR code"><p><b>Scan from another phone</b>or save a screenshot and open it in your UPI app.</p></div>
