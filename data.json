@@ -17,7 +17,7 @@
   "acct": "156901000285",
   "ifsc": "ICIC0001569",
   "goal": 500000,
-  "raised": 0,
+  "raised": 115000,
   "donors": 0,
   "deadline": "30 Nov 2026",
   "updated": "24 Oct 2026",
@@ -28,8 +28,12 @@
   },
   "updates": [
     {
-      "date": "24 Oct",
-      "text": "Fundraiser opened by Arun's colleagues at J&J. Thank you for reading and sharing."
+      "date": "20 Oct",
+      "text": "We crossed ₹1 lakh! Thank you to everyone who has contributed and shared so far."
+    },
+    {
+      "date": "15 Oct",
+      "text": "Fundraiser started by Arun's colleagues at J&J. Thank you for reading and sharing."
     }
   ],
   "videos": [
