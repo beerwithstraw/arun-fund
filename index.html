@@ -129,6 +129,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 details.qr-toggle summary { cursor: pointer; font-size: 15px; font-weight: 700; color: var(--teal); list-style: none; padding: 4px 0; }
 details.qr-toggle summary::-webkit-details-marker { display: none; }
 details.qr-toggle[open] summary { margin-bottom: 10px; }
+details .if-open, details[open] .if-closed { display: none; }
+details[open] .if-open { display: inline; }
 .pay-hint { font-size: 14px; color: var(--muted); line-height: 1.45; }
 .assure { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--muted); line-height: 1.45; }
 .assure svg { flex: none; margin-top: 2px; }
@@ -310,7 +312,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
         <div class="copyrow"><span class="lbl">UPI ID</span><code>${esc(S.upi).replace("@", "@<wbr>")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.upi)}" data-msg="UPI ID copied">Copy</button></div>
         <p class="pay-hint only-touch">Copy the UPI ID and paste it in GPay, PhonePe, Paytm or your bank's app.</p>
         <details class="qr-toggle only-touch" ${P.qr ? "" : "hidden"}>
-          <summary>Show QR code</summary>
+          <summary><span class="if-closed">Show QR code</span><span class="if-open">Hide QR code</span></summary>
           <div class="qr"><img src="${esc(P.qr)}" alt="UPI QR code"><p><b>Scan from another phone</b>or save a screenshot and open it in your UPI app.</p></div>
         </details>
       </div>
