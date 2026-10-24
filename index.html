@@ -77,7 +77,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .hero-band { position: relative; overflow: hidden; margin: 20px 0 0; padding: 28px 22px 30px; border-radius: var(--r-lg); background: linear-gradient(160deg, #e3ecf2 0%, #f6e7d6 62%, #fbefd9 100%); display: flex; flex-direction: column; gap: 14px; }
 .hero-band h1, .hero-band .kicker, .hero-lede { position: relative; z-index: 1; max-width: 30ch; }
 .hero-lede { font-size: 18px; color: #3d4a57; max-width: 46ch; }
-.hero-art { display: none; }
 .intro h1 { font-size: clamp(28px, 6.6vw, 42px); }
 .organiser { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--muted); }
 .avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--teal-soft); color: var(--teal); display: grid; place-items: center; font-weight: 800; font-size: 14px; }
@@ -209,8 +208,6 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
 }
 @media (min-width: 640px) {
   .hero-band { margin-top: 24px; padding: 40px 40px 44px; }
-  .hero-band { padding-right: 230px; }
-  .hero-art { display: block; position: absolute; right: 20px; bottom: 26px; width: 190px; color: rgba(35,97,109,.22); }
   .uses { grid-template-columns: repeat(4, minmax(0,1fr)); }
 }
 @media (min-width: 960px) {
@@ -319,7 +316,6 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
       <div class="hero-band">
         <span class="kicker">A fundraiser by Arun's colleagues at J&amp;J</span>
         <h1>Helping our colleague ${f("name")} and his family rebuild their home</h1>
-        <svg class="hero-art" viewBox="0 0 220 120" aria-hidden="true"><path d="M30 110V58L110 12l80 46v52" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M92 110V78h36v32" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M8 110h204" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="110" cy="56" r="9" fill="#e39a2b" stroke="none"/></svg>
       </div>
     </div>
 
