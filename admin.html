@@ -39,6 +39,10 @@ button:disabled { opacity: .5; cursor: default; }
 .list { display: flex; flex-direction: column; gap: 6px; }
 .item { display: flex; gap: 8px; align-items: center; justify-content: space-between; background: var(--accent-soft); border-radius: 8px; padding: 6px 10px; font-size: 14px; }
 .item span { min-width: 0; overflow-wrap: anywhere; }
+.upd-new { display: grid; grid-template-columns: 170px minmax(0,1fr) auto; gap: 10px; align-items: end; }
+.upd-row { display: grid; grid-template-columns: 110px minmax(0,1fr) auto; gap: 8px; align-items: start; background: var(--accent-soft); border-radius: 10px; padding: 8px; }
+.upd-row textarea { min-height: 44px; }
+@media (max-width: 560px) { .upd-new, .upd-row { grid-template-columns: 1fr; } .upd-row button { justify-self: start; } }
 .item button { padding: 4px 10px; font-size: 13px; }
 .status { font-size: 14px; }
 .status.ok { color: var(--good); } .status.err { color: var(--bad); }
@@ -81,20 +85,13 @@ button:disabled { opacity: .5; cursor: default; }
 
       <fieldset>
         <legend>Post an update</legend>
-        <div class="row">
-          <label>Update <input id="updText" type="text" placeholder="₹1.2 lakh raised. The family has found a flat in Vasai."></label>
-          <button type="button" id="addUpd">Add</button>
+        <div class="upd-new">
+          <label>Date <input id="updDate" type="date"></label>
+          <label>Update <textarea id="updText" rows="2" placeholder="₹1.2 lakh raised so far. Thank you, everyone."></textarea></label>
+          <button type="button" id="addUpd">Add update</button>
         </div>
+        <p class="muted">Posted updates. Edit the date or text directly, then Save to site.</p>
         <div class="list" id="updList"></div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Things the family needs</legend>
-        <div class="row">
-          <label>Item <input id="needText" type="text" placeholder="Winter blankets"></label>
-          <button type="button" id="addNeed">Add</button>
-        </div>
-        <div class="list" id="needList"></div>
       </fieldset>
 
       <fieldset>
@@ -176,8 +173,10 @@ button:disabled { opacity: .5; cursor: default; }
     lists(); summary();
   }
   function lists() {
-    $("updList").innerHTML = (D.updates || []).map((u, i) => `<div class="item"><span><b>${esc(u.date)}</b> ${esc(u.text)}</span><button type="button" data-del="updates" data-i="${i}">Remove</button></div>`).join("");
-    $("needList").innerHTML = (D.needs || []).map((n, i) => `<div class="item"><span>${esc(n)}</span><button type="button" data-del="needs" data-i="${i}">Remove</button></div>`).join("");
+    $("updList").innerHTML = (D.updates || []).map((u, i) => `<div class="upd-row">
+      <input type="text" value="${esc(u.date)}" data-upd="${i}" data-f="date" aria-label="Update date">
+      <textarea rows="2" data-upd="${i}" data-f="text" aria-label="Update text">${esc(u.text)}</textarea>
+      <button type="button" data-del="updates" data-i="${i}">Remove</button></div>`).join("") || '<p class="muted">No updates yet.</p>';
     $("vidList").innerHTML = (D.videos || []).map((v, i) => `<div class="item"><span>${esc(v.title)}</span><button type="button" data-del="videos" data-i="${i}">Remove</button></div>`).join("");
   }
   function summary() {
@@ -192,8 +191,19 @@ button:disabled { opacity: .5; cursor: default; }
   $("showBank").addEventListener("change", e => { D.showBank = e.target.checked; touch(); });
   $("preview").addEventListener("change", e => { D.preview = e.target.checked; touch(); });
 
-  $("addUpd").onclick = () => { const t = $("updText").value.trim(); if (!t) return; (D.updates = D.updates || []).unshift({ date: today(), text: t }); $("updText").value = ""; lists(); touch(); };
-  $("addNeed").onclick = () => { const t = $("needText").value.trim(); if (!t) return; (D.needs = D.needs || []).push(t); $("needText").value = ""; lists(); touch(); };
+  const isoToday = () => { const d = new Date(); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10); };
+  const fmtDate = iso => { const d = iso ? new Date(iso + "T00:00:00") : new Date(); return isNaN(d) ? today() : d.toLocaleDateString("en-IN", { day: "numeric", month: "short" }); };
+  $("updDate").value = isoToday();
+  $("addUpd").onclick = () => {
+    const t = $("updText").value.trim();
+    if (!t) return setStatus($("saveStatus"), "Write the update text first.", "err");
+    (D.updates = D.updates || []).unshift({ date: fmtDate($("updDate").value), text: t });
+    $("updText").value = ""; $("updDate").value = isoToday(); lists(); touch();
+  };
+  $("updList").addEventListener("input", e => {
+    const el = e.target.closest("[data-upd]"); if (!el) return;
+    D.updates[+el.dataset.upd][el.dataset.f] = el.value; touch();
+  });
   $("addVid").onclick = () => {
     const t = $("vTitle").value.trim(), u = $("vUrl").value.trim();
     if (!t || !/^https:\/\//i.test(u)) return setStatus($("saveStatus"), "Add a title and a link that starts with https://", "err");

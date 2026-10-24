@@ -26,17 +26,6 @@
   "photos": {
     "qr": "images/upi-qr.png"
   },
-  "needs": [
-    "School bags and stationery",
-    "Books for ages 5, 10 and 14",
-    "School uniforms and shoes",
-    "Toys and games",
-    "Clothes for all five",
-    "Bedding and towels",
-    "Kitchen utensils",
-    "A gas stove",
-    "Fan, mixer or iron"
-  ],
   "updates": [
     {
       "date": "24 Oct",
