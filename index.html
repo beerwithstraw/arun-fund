@@ -115,12 +115,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(34,48,62,.15); }
 .copyrow { display: grid; grid-template-columns: minmax(0,1fr) auto; grid-template-areas: "lbl btn" "val btn"; column-gap: 10px; align-items: center; background: var(--bg); border-radius: var(--r-sm); padding: 6px 6px 6px 12px; min-height: 52px; }
 .copyrow .lbl { grid-area: lbl; font-size: 11px; line-height: 1.4; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.copyrow code { grid-area: val; line-height: 1.35; font: 600 14px ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; user-select: all; min-width: 0; }
+.copyrow code { grid-area: val; line-height: 1.35; font: 700 16px var(--body); letter-spacing: .01em; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; user-select: all; min-width: 0; }
 .copyrow .btn { grid-area: btn; min-height: 36px; padding: 0 14px; font-size: 14px; }
 .btn-cta { background: var(--marigold); color: #2a1c05; }
 .btn-cta:hover { background: #d48b1c; }
 .upi-row { display: flex; align-items: center; gap: 8px; background: var(--bg); border-radius: var(--r-sm); padding: 6px 6px 6px 14px; }
-.upi-row code { flex: 1; min-width: 0; font: 600 15px ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; user-select: all; }
+.upi-row code { flex: 1; min-width: 0; font: 700 16px var(--body); overflow-wrap: anywhere; user-select: all; }
 .upi-row .btn { min-height: 38px; padding: 0 14px; font-size: 14px; }
 .qr { display: flex; gap: 14px; align-items: center; background: var(--bg); border-radius: var(--r-md); padding: 10px; }
 .qr img { width: 104px; height: 104px; border-radius: 8px; background: #fff; flex: none; }
@@ -249,7 +249,22 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
   const phoneDisp = String(S.phone || "").replace(/^(\d{5})(\d{5})$/, "+91 $1 $2");
   const phoneHref = "tel:+91" + String(S.phone || "").replace(/\D/g, "").slice(-10);
   const pageUrl = location.origin + location.pathname;
-  const shareText = `We're raising funds for our colleague ${S.name} at J&J, whose home at Imperial Heights, Nalasopara was destroyed in a fire. Please contribute if you can and share: ${pageUrl}`;
+  const shareText = [
+    `🙏 *Fundraiser for our colleague ${S.name}*`,
+    ``,
+    `On 13 October, a fire at Imperial Heights, Nalasopara destroyed the home of our J&J colleague ${S.name}. He, his wife and their three children are safe, but they lost nearly everything they owned.`,
+    ``,
+    `We are raising funds to help the family find a new home and set it up again.`,
+    ``,
+    `💛 *How to contribute*`,
+    `UPI: ${S.upi}`,
+    `Name: ${S.upiName}`,
+    ``,
+    `Bank transfer details and updates:`,
+    pageUrl,
+    ``,
+    `Every rupee goes directly to ${S.name}'s bank account. Please contribute if you can, and share this with others. Thank you 🙏`
+  ].join("\n");
   const upiLink = "upi://pay?pa=" + encodeURIComponent(S.upi) + "&pn=" + encodeURIComponent(S.upiName || S.name) + "&tn=" + encodeURIComponent("For Arun's family") + "&cu=INR";
   const initials = String(S.organiser || "").split(/\s+/).map(w => w[0] || "").join("").slice(0, 2).toUpperCase();
 

@@ -34,7 +34,7 @@ Open `data.json` and replace everything in [square brackets]. Or do it later fro
 
 1. app.netlify.com → Add new site → Import an existing project → GitHub → pick `arun-fund`.
 2. Leave the build command empty and the publish directory as `/` (or blank). Deploy.
-3. Site configuration → Change site name → for example `help-arun-rebuild`. Your link becomes `https://help-arun-rebuild.netlify.app`.
+3. Site configuration → Change site name → the site is `fundraise-for-arun`, so the link is `https://fundraise-for-arun.netlify.app`.
 
 Every time `data.json` changes on GitHub, Netlify republishes automatically in under a minute.
 
