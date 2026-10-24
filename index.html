@@ -250,20 +250,20 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
   const phoneHref = "tel:+91" + String(S.phone || "").replace(/\D/g, "").slice(-10);
   const pageUrl = location.origin + location.pathname;
   const shareText = [
-    `🙏 *Fundraiser for our colleague ${S.name}*`,
+    `*Fundraiser for our colleague ${S.name}*`,
     ``,
     `On 13 October, a fire at Imperial Heights, Nalasopara destroyed the home of our J&J colleague ${S.name}. He, his wife and their three children are safe, but they lost nearly everything they owned.`,
     ``,
     `We are raising funds to help the family find a new home and set it up again.`,
     ``,
-    `💛 *How to contribute*`,
+    `*How to contribute*`,
     `UPI: ${S.upi}`,
     `Name: ${S.upiName}`,
     ``,
     `Bank transfer details and updates:`,
     pageUrl,
     ``,
-    `Every rupee goes directly to ${S.name}'s bank account. Please contribute if you can, and share this with others. Thank you 🙏`
+    `Every rupee goes directly to ${S.name}'s bank account. Please contribute if you can, and share this with others. Thank you.`
   ].join("\n");
   const upiLink = "upi://pay?pa=" + encodeURIComponent(S.upi) + "&pn=" + encodeURIComponent(S.upiName || S.name) + "&tn=" + encodeURIComponent("For Arun's family") + "&cu=INR";
   const initials = String(S.organiser || "").split(/\s+/).map(w => w[0] || "").join("").slice(0, 2).toUpperCase();
