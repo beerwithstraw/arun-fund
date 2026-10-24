@@ -1,5 +1,5 @@
 {
-  "preview": true,
+  "preview": false,
   "name": "Arun",
   "fullName": "Arunkumar O Dubey",
   "flat": "903",
@@ -17,8 +17,8 @@
   "acct": "156901000285",
   "ifsc": "ICIC0001569",
   "goal": 500000,
-  "raised": 122345,
-  "donors": 23,
+  "raised": 0,
+  "donors": 0,
   "deadline": "30 Nov 2026",
   "updated": "24 Oct 2026",
   "organiser": "Rohit Morye",
