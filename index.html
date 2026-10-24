@@ -196,7 +196,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
 
 /* Pointer-based payment emphasis: phones get the UPI app button, laptops get the QR */
 .only-touch { display: none; }
-@media (pointer: coarse), (max-width: 600px) { .only-touch { display: flex; } .only-fine { display: none; } }
+@media (pointer: coarse), (max-width: 600px) { .only-touch { display: flex; } details.only-touch, p.only-touch { display: block; } .only-fine { display: none; } }
 
 @media (max-width: 399px) {
   .brand { font-size: 15px; gap: 6px; }
