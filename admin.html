@@ -110,18 +110,13 @@ button:disabled { opacity: .5; cursor: default; }
       <fieldset>
         <legend>Details</legend>
         <div class="grid">
-          <label>Full name <input data-k="fullName"></label>
-          <label>Team <input data-k="team"></label>
-          <label>Where the family is staying <input data-k="staying"></label>
           <label>UPI ID <input data-k="upi"></label>
           <label>Name on UPI / bank account <input data-k="upiName"></label>
           <label>Bank name <input data-k="bankName"></label>
-          <label>Account number <input data-k="acct"></label>
+          <label>Account number (digits only) <input data-k="acct" inputmode="numeric"></label>
           <label>IFSC <input data-k="ifsc"></label>
           <label>Organiser name <input data-k="organiser"></label>
           <label>Organiser phone (10 digits) <input data-k="phone" inputmode="tel"></label>
-          <label>Organiser email <input data-k="email" type="email"></label>
-          <label>Drop-off point for items <input data-k="dropoff"></label>
         </div>
         <label class="check"><input type="checkbox" id="showBank"> Show the bank transfer tab on the site</label>
         <label class="check"><input type="checkbox" id="preview"> Show the "Preview, not live yet" banner (untick when you launch)</label>

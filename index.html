@@ -4,19 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Help Arun's Family Rebuild</title>
-<meta name="description" content="A fire at Imperial Heights, Nalasopara took Arun's home on 13 October 2026. His colleagues are helping his family of five start again.">
+<meta name="description" content="Arun's colleagues at J&J are raising funds for his family of five after a fire at Imperial Heights, Nalasopara destroyed their home on 13 October 2026.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Help Arun's family rebuild their home">
-<meta property="og:description" content="A fire at Imperial Heights, Nalasopara took their home. Every rupee goes straight to the family.">
-<meta property="og:image" content="https://help-arun-rebuild.netlify.app/images/family.jpg">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="A fundraiser for our colleague Arun's family">
+<meta property="og:description" content="Arun's home at Imperial Heights, Nalasopara was destroyed in a fire. His colleagues at J&J are helping his family set up a new home. Every rupee goes straight to the family.">
+<meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#f7f4f0">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap">
 <style>
-/* Layout: mobile-first single column (photo, title, donate card, story). From 960px: story column + sticky donate card on the right, the pattern people trust from Milaap/Ketto. Single light theme by choice: calm, daylight, hopeful. */
+/* Layout: mobile-first single column (title band, donate card, story). From 960px: story column + sticky donate card on the right, the pattern people trust from Milaap/Ketto. Single light theme by choice: calm, daylight, hopeful. */
 :root {
   color-scheme: light;
   --bg: #f7f4f0;          /* warm paper grey */
@@ -75,9 +74,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .intro, .rest { min-width: 0; display: flex; flex-direction: column; gap: 20px; }
 .rest { gap: 48px; }
 
-.hero { margin: 0 calc(-1 * var(--gutter-r)) 0 calc(-1 * var(--gutter)); }
-.hero img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-.intro h1 { font-size: clamp(28px, 7vw, 42px); }
+.hero-band { position: relative; overflow: hidden; margin: 20px 0 0; padding: 28px 22px 30px; border-radius: var(--r-lg); background: linear-gradient(160deg, #e3ecf2 0%, #f6e7d6 62%, #fbefd9 100%); display: flex; flex-direction: column; gap: 14px; }
+.hero-band h1, .hero-band .kicker, .hero-lede { position: relative; z-index: 1; max-width: 30ch; }
+.hero-lede { font-size: 18px; color: #3d4a57; max-width: 46ch; }
+.hero-art { display: none; }
+.intro h1 { font-size: clamp(28px, 6.6vw, 42px); }
 .organiser { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--muted); }
 .avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--teal-soft); color: var(--teal); display: grid; place-items: center; font-weight: 800; font-size: 14px; }
 .organiser b { color: var(--ink); font-weight: 700; }
@@ -207,11 +208,10 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
   .use { padding: 14px; }
 }
 @media (min-width: 640px) {
-  .hero { margin: 24px 0 0; }
-  .hero img { border-radius: var(--r-lg); }
+  .hero-band { margin-top: 24px; padding: 40px 40px 44px; }
+  .hero-band { padding-right: 230px; }
+  .hero-art { display: block; position: absolute; right: 20px; bottom: 26px; width: 190px; color: rgba(35,97,109,.22); }
   .uses { grid-template-columns: repeat(4, minmax(0,1fr)); }
-  .meet { grid-template-columns: 140px minmax(0,1fr); padding: 20px; }
-  .meet img { width: 140px; }
 }
 @media (min-width: 960px) {
   body { padding-bottom: 0; }
@@ -253,7 +253,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
   const phoneDisp = String(S.phone || "").replace(/^(\d{5})(\d{5})$/, "+91 $1 $2");
   const phoneHref = "tel:+91" + String(S.phone || "").replace(/\D/g, "").slice(-10);
   const pageUrl = location.origin + location.pathname;
-  const shareText = `${S.name}, our colleague, lost his home in the Imperial Heights fire in Nalasopara. Let's help his family of five set up a new home: ${pageUrl}`;
+  const shareText = `We're raising funds for our colleague ${S.name} at J&J, whose home at Imperial Heights, Nalasopara was destroyed in a fire. Please contribute if you can and share: ${pageUrl}`;
   const upiLink = "upi://pay?pa=" + encodeURIComponent(S.upi) + "&pn=" + encodeURIComponent(S.upiName || S.name) + "&tn=" + encodeURIComponent("For Arun's family") + "&cu=INR";
   const initials = String(S.organiser || "").split(/\s+/).map(w => w[0] || "").join("").slice(0, 2).toUpperCase();
 
@@ -305,7 +305,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
       </div>
       <div class="pay" id="pane-bank" role="tabpanel" aria-labelledby="tab-bank" hidden>
         <div class="copyrow"><span class="lbl">Account name</span><code>${f("upiName")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.upiName)}" data-msg="Name copied">Copy</button></div>
-        <div class="copyrow"><span class="lbl">Account number</span><code>${f("acct")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.acct)}" data-msg="Account number copied">Copy</button></div>
+        <div class="copyrow"><span class="lbl">Account number</span><code>${esc(String(S.acct).replace(/(\d{4})(?=\d)/g, "$1 "))}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.acct)}" data-msg="Account number copied">Copy</button></div>
         <div class="copyrow"><span class="lbl">IFSC</span><code>${f("ifsc")}</code><button type="button" class="btn btn-ghost" data-copy="${esc(S.ifsc)}" data-msg="IFSC copied">Copy</button></div>
         <div class="copyrow"><span class="lbl">Bank · NEFT / IMPS</span><code>${f("bankName")}</code></div>
       </div>
@@ -313,7 +313,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
     </div>`;
 
   app.innerHTML = `
-  ${S.preview ? `<div class="preview">Preview with sample photos and numbers. Not live for donations yet.</div>` : ""}
+  ${S.preview ? `<div class="preview">Preview. Not shared for donations yet.</div>` : ""}
   <header class="topbar"><div class="wrap">
     <a class="brand" href="#top">${icon.heart} Arun's Rebuild Fund</a>
     <a class="btn btn-cta btn-sm" href="#give">${icon.hand} Contribute</a>
@@ -321,11 +321,13 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
 
   <div class="wrap page" id="top">
     <div class="intro">
-      <figure class="hero" style="margin-bottom:0">
-        <img src="${esc(P.family)}" alt="${esc(S.name)} with his wife and three children" fetchpriority="high" onerror="this.closest('figure').hidden=true">
-      </figure>
-      <h1>Help ${f("name")}'s family of five find their way home again</h1>
-      <div class="organiser"><span class="avatar" aria-hidden="true">${esc(initials)}</span><p><b>${f("organiser")}</b> is organising this on behalf of ${f("name")}'s colleagues.</p></div>
+      <div class="hero-band">
+        <span class="kicker">A fundraiser by Arun's colleagues at J&amp;J</span>
+        <h1>Helping our colleague ${f("name")} and his family rebuild their home</h1>
+        <p class="hero-lede">On 13 October, a fire at Imperial Heights, Nalasopara destroyed the home of our colleague ${f("name")} and his family. We are coming together to help them set up a new one.</p>
+        <svg class="hero-art" viewBox="0 0 220 120" aria-hidden="true"><path d="M30 110V58L110 12l80 46v52" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M92 110V78h36v32" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M8 110h204" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="110" cy="56" r="9" fill="#e39a2b" stroke="none"/></svg>
+      </div>
+      <div class="organiser"><span class="avatar" aria-hidden="true">${esc(initials)}</span><p><b>${f("organiser")}</b> is organising this on behalf of ${f("name")}'s colleagues at J&amp;J.</p></div>
       <div class="facts">
         <div class="fact"><b>13 Oct</b><span>Fire at Imperial Heights, Nalasopara</span></div>
         <div class="fact"><b>Flat ${f("flat")}</b><span>Their 1BHK home on the 9th floor</span></div>
@@ -337,24 +339,12 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
 
     <div class="rest">
       <section class="section">
-        <span class="kicker">Their story</span>
+        <span class="kicker">Why we are raising funds</span>
         <div class="prose">
-          <p class="lead">Late on the night of 13 October, a fire spread through the upper floors of Imperial Heights on the Nalasopara–Vasai Link Road. ${f("name")}, his wife and their three children, aged around 14, 10 and 5, got out safely.</p>
-          <p>Their home did not. The 1BHK they had built up over the years, flat ${f("flat")} on the 9th floor, was completely burnt. Beds, clothes, the kitchen, school books and uniforms, the children's toys, and family documents are all gone.</p>
-          <p>The family is ${f("staying")} for now. What they need most is a place to live again and the basics to make it a home, so the children can get back to school and a normal routine as soon as possible.</p>
-          <p>${f("name")} is one of us. If you can give anything, money or things, it will go directly to his family.</p>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="meet">
-          <img src="${esc(P.arun)}" alt="${esc(S.name)}" onerror="this.hidden=true">
-          <div>
-            <span class="kicker">Meet ${f("name")}</span>
-            <h3>${f("fullName")}</h3>
-            <p class="quiet" style="font-size:15px">Works with us in ${f("team")}</p>
-            <div class="chips">${(S.family || []).map(m => `<span class="chip">${esc(m)}</span>`).join("")}</div>
-          </div>
+          <p class="lead">Late on the night of 13 October, a fire spread through the upper floors of Imperial Heights on the Nalasopara–Vasai Link Road. Our colleague ${f("name")}, his wife and their three children, aged around 14, 10 and 5, live in flat ${f("flat")} on the 9th floor.</p>
+          <p>The family is safe, but their 1BHK home was completely burnt. Furniture, clothes, the kitchen, the children's school books and uniforms, and important documents were all lost.</p>
+          <p>As ${f("name")}'s colleagues at J&amp;J, we are raising this fund to help the family find a new place to live and set it up again, so the children can get back to school and a normal routine as soon as possible.</p>
+          <p>Every contribution, big or small, goes directly into ${f("name")}'s bank account. Thank you for standing with him.</p>
         </div>
       </section>
 
@@ -374,7 +364,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
           <span class="kicker" style="color:var(--teal)">Give things, not just money</span>
           <h2>What the family needs right now</h2>
           <div class="chips">${(S.needs || []).map(n => `<span class="chip">${esc(n)}</span>`).join("")}</div>
-          <p style="font-size:16px">Drop items at ${f("dropoff")}, or call ${f("organiser")} on <a href="${phoneHref}">${esc(phoneDisp)}</a> to arrange a pickup. A lead on a 1BHK to rent near Nalasopara or Vasai helps too.</p>
+          <p style="font-size:16px">To give items, call ${f("organiser")} on <a href="${phoneHref}">${esc(phoneDisp)}</a> to arrange a drop-off or pickup. A lead on a 1BHK to rent near Nalasopara or Vasai helps too.</p>
         </div>
       </section>
 
@@ -399,7 +389,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
         <h2>Before you give</h2>
         <div class="faq">
           <details><summary>Where does my money go?</summary><p>Straight into ${f("name")}'s own bank account, whether you pay by UPI or bank transfer. Nobody else handles it. The organiser only updates the total on this page.</p></details>
-          <details><summary>Is this genuine?</summary><p>${f("name")} works with us in ${f("team")}, and his home was in Imperial Heights, Nalasopara, which caught fire on 13 October 2026. The news reports above cover the fire. You can reach the organiser, ${f("organiser")}, on <a href="${phoneHref}">${esc(phoneDisp)}</a> or <a href="mailto:${esc(S.email)}">${esc(S.email)}</a> with any question.</p></details>
+          <details><summary>Is this genuine?</summary><p>${f("name")} is our colleague at J&amp;J, and his home was in Imperial Heights, Nalasopara, which caught fire on 13 October 2026. The news reports above cover the fire. The bank account belongs to ${f("name")} himself. You can call the organiser, ${f("organiser")}, on <a href="${phoneHref}">${esc(phoneDisp)}</a> with any question.</p></details>
           <details><summary>Will I get a tax receipt?</summary><p>No. This is personal help for a colleague's family, not a registered charity, so there is no 80G receipt.</p></details>
           <details><summary>How often is the total updated?</summary><p>Once or twice a day. Last updated ${f("updated")}. If you don't see your gift yet, it's on its way into the next update.</p></details>
           <details><summary>I can't give money. How else can I help?</summary><p>Share this page on WhatsApp, drop off any of the items listed above, or pass on a lead for a flat to rent nearby. All of it helps.</p></details>
@@ -407,8 +397,8 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
       </section>
 
       <footer>
-        <p>Organised with care by ${f("name")}'s colleagues.</p>
-        <p>Questions? Contact ${f("organiser")} · <a href="${phoneHref}">${esc(phoneDisp)}</a> · <a href="mailto:${esc(S.email)}">${esc(S.email)}</a></p>
+        <p>Organised with care by ${f("name")}'s colleagues at J&amp;J.</p>
+        <p>Questions? Call ${f("organiser")} on <a href="${phoneHref}">${esc(phoneDisp)}</a></p>
         <p>Total last updated ${f("updated")}.</p>
       </footer>
     </div>

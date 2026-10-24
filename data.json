@@ -1,8 +1,7 @@
 {
   "preview": true,
   "name": "Arun",
-  "fullName": "[Arun's full name]",
-  "team": "[Team / department]",
+  "fullName": "Arunkumar O Dubey",
   "flat": "903",
   "family": [
     "Arun",
@@ -11,24 +10,20 @@
     "Child, 10",
     "Child, 5"
   ],
-  "staying": "[staying with relatives]",
-  "upi": "[upi-id@bank]",
-  "upiName": "[Name on UPI account]",
+  "upi": "arundubey2312@okicici",
+  "upiName": "ARUNKUMAR O DUBEY",
   "showBank": true,
-  "bankName": "[Bank name]",
-  "acct": "[Account number]",
-  "ifsc": "[IFSC code]",
+  "bankName": "ICICI Bank, Nallasopara East",
+  "acct": "156901000285",
+  "ifsc": "ICIC0001569",
   "goal": 500000,
   "raised": 122345,
   "donors": 23,
   "deadline": "30 Nov 2026",
-  "updated": "20 Oct 2026",
+  "updated": "24 Oct 2026",
   "organiser": "Rohit Morye",
   "phone": "9920820538",
-  "dropoff": "[Drop-off point, e.g. 4th floor pantry]",
   "photos": {
-    "family": "images/family.jpg",
-    "arun": "images/arun.jpg",
     "qr": "images/upi-qr.png"
   },
   "needs": [
@@ -44,8 +39,8 @@
   ],
   "updates": [
     {
-      "date": "20 Oct",
-      "text": "Drive opened. Thank you for reading and sharing."
+      "date": "24 Oct",
+      "text": "Fundraiser opened by Arun's colleagues at J&J. Thank you for reading and sharing."
     }
   ],
   "videos": [
@@ -61,6 +56,5 @@
       "title": "Fire at 14-storey building in Nalasopara (Hindi)",
       "url": "https://www.youtube.com/watch?v=z8weeNsYClc"
     }
-  ],
-  "email": "Rmorye@its.jnj.com"
+  ]
 }
