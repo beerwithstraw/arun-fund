@@ -95,7 +95,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .fact span { margin-top: 0; font-size: 14px; }
 }
 /* Donate card */
-.give { background: var(--surface); border-radius: var(--r-lg); padding: 20px; box-shadow: 0 1px 0 var(--line), 0 18px 40px -24px rgba(34,48,62,.35); display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 80px; }
+.give { background: var(--surface); border-radius: var(--r-lg); padding: 20px; box-shadow: 0 1px 0 var(--line), 0 18px 40px -24px rgba(34,48,62,.35); display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 16px; }
 .give-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .share-mini { display: flex; gap: 8px; flex: none; }
 .icon-btn { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--line); background: var(--surface); color: var(--teal); cursor: pointer; padding: 0; text-decoration: none; }
@@ -219,7 +219,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
   .intro { grid-column: 1; grid-row: 1; }
   .rest { grid-column: 1; grid-row: 2; }
   .side { grid-column: 2; grid-row: 1 / span 2; }
-  .give { position: sticky; top: 84px; margin-top: 24px; max-height: calc(100vh - 100px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+  .give { position: sticky; top: 24px; margin-top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
   .dock { display: none; }
   .toast { bottom: 28px; }
 }
@@ -314,24 +314,12 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
 
   app.innerHTML = `
   ${S.preview ? `<div class="preview">Preview. Not shared for donations yet.</div>` : ""}
-  <header class="topbar"><div class="wrap">
-    <a class="brand" href="#top">${icon.heart} Arun's Rebuild Fund</a>
-    <a class="btn btn-cta btn-sm" href="#give">${icon.hand} Contribute</a>
-  </div></header>
-
   <div class="wrap page" id="top">
     <div class="intro">
       <div class="hero-band">
         <span class="kicker">A fundraiser by Arun's colleagues at J&amp;J</span>
         <h1>Helping our colleague ${f("name")} and his family rebuild their home</h1>
-        <p class="hero-lede">On 13 October, a fire at Imperial Heights, Nalasopara destroyed the home of our colleague ${f("name")} and his family. We are coming together to help them set up a new one.</p>
         <svg class="hero-art" viewBox="0 0 220 120" aria-hidden="true"><path d="M30 110V58L110 12l80 46v52" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M92 110V78h36v32" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M8 110h204" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="110" cy="56" r="9" fill="#e39a2b" stroke="none"/></svg>
-      </div>
-      <div class="organiser"><span class="avatar" aria-hidden="true">${esc(initials)}</span><p><b>${f("organiser")}</b> is organising this on behalf of ${f("name")}'s colleagues at J&amp;J.</p></div>
-      <div class="facts">
-        <div class="fact"><b>13 Oct</b><span>Fire at Imperial Heights, Nalasopara</span></div>
-        <div class="fact"><b>Flat ${f("flat")}</b><span>Their 1BHK home on the 9th floor</span></div>
-        <div class="fact"><b>Family of 5</b><span>Arun, his wife and their three children</span></div>
       </div>
     </div>
 
@@ -359,15 +347,6 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
         </div>
       </section>
 
-      <section class="section">
-        <div class="things">
-          <span class="kicker" style="color:var(--teal)">Give things, not just money</span>
-          <h2>What the family needs right now</h2>
-          <div class="chips">${(S.needs || []).map(n => `<span class="chip">${esc(n)}</span>`).join("")}</div>
-          <p style="font-size:16px">To give items, call ${f("organiser")} on <a href="${phoneHref}">${esc(phoneDisp)}</a> to arrange a drop-off or pickup. A lead on a 1BHK to rent near Nalasopara or Vasai helps too.</p>
-        </div>
-      </section>
-
       ${(S.updates || []).length ? `<section class="section">
         <span class="kicker">Updates</span>
         <h2>How the family is doing</h2>
@@ -392,7 +371,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 12px; font-size:
           <details><summary>Is this genuine?</summary><p>${f("name")} is our colleague at J&amp;J, and his home was in Imperial Heights, Nalasopara, which caught fire on 13 October 2026. The news reports above cover the fire. The bank account belongs to ${f("name")} himself. You can call the organiser, ${f("organiser")}, on <a href="${phoneHref}">${esc(phoneDisp)}</a> with any question.</p></details>
           <details><summary>Will I get a tax receipt?</summary><p>No. This is personal help for a colleague's family, not a registered charity, so there is no 80G receipt.</p></details>
           <details><summary>How often is the total updated?</summary><p>Once or twice a day. Last updated ${f("updated")}. If you don't see your gift yet, it's on its way into the next update.</p></details>
-          <details><summary>I can't give money. How else can I help?</summary><p>Share this page on WhatsApp, drop off any of the items listed above, or pass on a lead for a flat to rent nearby. All of it helps.</p></details>
+          <details><summary>I can't give money. How else can I help?</summary><p>Share this page on WhatsApp with colleagues and friends, or pass on a lead for a 1BHK to rent near Nalasopara or Vasai. Both help a lot.</p></details>
         </div>
       </section>
 
